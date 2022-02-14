@@ -1,24 +1,59 @@
 import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import FoodBox from './components/FoodBox';
+import NewFoodInput from './components/NewFoodInput';
+import SearchBar from './components/SearchBar';
+import TodaysFood from './components/TodaysFood';
+import foodsDataJson from './foods.json';
 
 function App() {
+  const [foods, setFoods] = useState(foodsDataJson);
+  const [todaysFood, setTodaysFood] = useState();
+
+  const addNewFood = (newFood) => {
+    setFoods([...foods, newFood]);
+  };
+
+  const onFilter = (input) => {
+    setFoods(foods.filter((food) => food.name.includes(input)));
+    if (input === '') {
+      setFoods(foodsDataJson);
+    }
+  };
+
+  const onAdd = (todayFood) => {
+    setTodaysFood(...todayFood);
+    console.log(todayFood);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SearchBar onFilter={onFilter} />
+      <NewFoodInput addFood={addNewFood} />
+      <div className="food">
+        {foods.map((food, i) => (
+          <FoodBox
+            key={i}
+            name={food.name}
+            calories={food.calories}
+            image={food.image}
+            quantity={food.quantity}
+          />
+        ))}
+      </div>
+      <div>
+        {foods.map((todaysFood, i) => (
+          <TodaysFood
+            key={i}
+            name={todaysFood.name}
+            calories={todaysFood.calories}
+            image={todaysFood.image}
+            quantity={todaysFood.quantity}
+            onAdd={onAdd}
+          />
+        ))}
+      </div>
     </div>
   );
 }

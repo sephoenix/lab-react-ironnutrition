@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+img {
+  width: 240px;
+  height: 180px;
+}
+
+
+
+.food {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: space-between
+}
