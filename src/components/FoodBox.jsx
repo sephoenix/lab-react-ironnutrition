@@ -10,7 +10,6 @@ function FoodBox(foods) {
 
   const handleClick = (e) => {
     const todayFood = { ...foods, quantity };
-    console.log(todayFood);
     foods.onAdd(todayFood);
   };
 
@@ -19,7 +18,7 @@ function FoodBox(foods) {
       <article className="media">
         <div className="media-left">
           <figure className="image is-64x64">
-            <img src={foods.image} />
+            <img src={foods.image} alt="imagen"/>
           </figure>
         </div>
         <div className="media-content">

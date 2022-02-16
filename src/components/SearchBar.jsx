@@ -6,15 +6,16 @@ function SearchBar({ onFilter }) {
 
   const handleChange = (e) => {
     setInput(e.target.value);
-    onFilter(input);
+    onFilter(e.target.value);
   };
 
   return (
     <div>
+      <h2>SearchBar</h2>
       <input
         name="name"
         type="search"
-        value={input.name}
+        value={input}
         onChange={handleChange}
       />
     </div>

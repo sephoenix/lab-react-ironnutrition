@@ -9,7 +9,8 @@ import foodsDataJson from './foods.json';
 
 function App() {
   const [foods, setFoods] = useState(foodsDataJson);
-  const [todaysFood, setTodaysFood] = useState();
+  const [todaysFood, setTodaysFood] = useState([]);
+  const [calories, setCalories]= useState("")
 
   const addNewFood = (newFood) => {
     setFoods([...foods, newFood]);
@@ -23,9 +24,12 @@ function App() {
   };
 
   const onAdd = (todayFood) => {
-    setTodaysFood(...todayFood);
-    console.log(todayFood);
+    setTodaysFood([...todaysFood, todayFood]);
+    setCalories(todaysFood)
+    console.log(todaysFood)
   };
+
+  
 
   return (
     <div className="App">
@@ -39,18 +43,19 @@ function App() {
             calories={food.calories}
             image={food.image}
             quantity={food.quantity}
+            onAdd={onAdd}
           />
         ))}
       </div>
       <div>
-        {foods.map((todaysFood, i) => (
+        <h1>Today's food</h1>
+        {todaysFood.map((todayFood, i) => (
           <TodaysFood
             key={i}
-            name={todaysFood.name}
-            calories={todaysFood.calories}
-            image={todaysFood.image}
-            quantity={todaysFood.quantity}
-            onAdd={onAdd}
+            name={todayFood.name}
+            calories={todayFood.calories}
+            image={todayFood.image}
+            quantity={todayFood.quantity}
           />
         ))}
       </div>
